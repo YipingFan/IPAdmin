@@ -1,0 +1,33 @@
+﻿@model IPAdmin.Models.Patent
+
+@{
+    ViewBag.Title = "Generate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Generate</h2>
+
+<fieldset>
+    <legend>Patent</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Number)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Number)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    @{
+        int x = 5;
+    }
+</fieldset>
+<p>
+    @Html.ActionLink("Generate", "Generate", new { id=Model.Id, number=x }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

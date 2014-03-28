@@ -1,0 +1,51 @@
+﻿@model IEnumerable<IPAdmin.Models.SerialNoCustomer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@Html.DisplayNameFor(m => m.SerialNo.SerialNumber)
+
+@if (Model.FirstOrDefault() != null)
+{
+    var snCustomer = Model.FirstOrDefault();
+    @snCustomer.SerialNo.SerialNumber
+}
+
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MachineId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelitem => item.Customer.Company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineId)
+            </td>    
+        </tr>
+    }
+    
+</table>
+
+Give to customer (list customer who does not own the serial no)
+Print (print the string of owners for this serial no)

@@ -1,0 +1,60 @@
+﻿@using System.Diagnostics.Eventing.Reader
+@model IPAdmin.Models.Patent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Patent</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Number)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Number)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.SerialNoes)
+    </div>
+        
+        @if (Model.SerialNoes != null)
+        {
+            <ul>
+            @foreach (var sn in Model.SerialNoes)
+             {
+                 <li>
+                     @sn.SerialNumber
+
+                     @if (sn.SerialNoCustomers != null)
+                     {
+                         @sn.SerialNoCustomers.Count;
+                     }
+                     else
+                     {
+                         @Html.DisplayText("0")
+                     }
+                     users
+                     
+                     @Html.ActionLink("Detail", "Index", "SerialNo", new { id = sn.Id }, null)
+                 </li>
+             }
+            </ul>
+        }
+    
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Generate more serial number", "Generate", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
