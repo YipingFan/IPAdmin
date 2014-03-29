@@ -199,8 +199,12 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\PatentRepository.cs" />
+    <Compile Include="ViewModels\AvailableCustomer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Certificate.css" />
+    <Content Include="Content\CertificateTemplate.html" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -258,6 +262,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Images\bg.jpg" />
+    <Content Include="Images\header.jpg" />
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-2.1.0.min.map" />
@@ -324,6 +330,7 @@
     <Content Include="Views\Patent\Delete.cshtml" />
     <Content Include="Views\Patent\Generate.cshtml" />
     <Content Include="Views\SerialNo\Index.cshtml" />
+    <Content Include="Views\SerialNo\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -38,12 +38,15 @@
 
                      @if (sn.SerialNoCustomers != null)
                      {
-                         @sn.SerialNoCustomers.Count;
+                         int i = sn.SerialNoCustomers.Count - 1;
+                         @i;
+                         <text> user(s)</text>
                      }
                      else
                      {
-                         @Html.DisplayText("0")
+                        <text>0 user</text>
                      }
+
                      users
                      
                      @Html.ActionLink("Detail", "Index", "SerialNo", new { id = sn.Id }, null)

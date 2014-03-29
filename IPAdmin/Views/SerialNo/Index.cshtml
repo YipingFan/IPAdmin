@@ -1,20 +1,20 @@
-﻿@model IEnumerable<IPAdmin.Models.SerialNoCustomer>
+﻿@using IPAdmin.Models
+@model IEnumerable<IPAdmin.Models.SerialNoCustomer>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    SerialNoCustomer snCustomer;
 }
 
 <h2>Index</h2>
 
-@Html.DisplayNameFor(m => m.SerialNo.SerialNumber)
 
 @if (Model.FirstOrDefault() != null)
 {
-    var snCustomer = Model.FirstOrDefault();
+    snCustomer = Model.FirstOrDefault();
     @snCustomer.SerialNo.SerialNumber
 }
-
 
 <table>
     <tr>
@@ -47,5 +47,11 @@
     
 </table>
 
-Give to customer (list customer who does not own the serial no)
-Print (print the string of owners for this serial no)
+@if (Model.FirstOrDefault() != null)
+{
+    snCustomer = Model.FirstOrDefault();
+    @Html.ActionLink("Give to customer", "Create", new {id = snCustomer.SerialNoId}) <br/>
+    @Html.ActionLink("Print", "PrintChild", new {id=snCustomer.SerialNoId})
+
+}
+

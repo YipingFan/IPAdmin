@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace IPAdmin.Controllers
         {
             //Patent patent = db.Patents.Find(id);
 
-            var patent = (from p in db.Patents.Include("SerialNoes")
+            var patent = (from p in db.Patents.Include("SerialNoes.SerialNoCustomers")
                 where p.Id == id
                 select p).FirstOrDefault();
 
@@ -135,9 +136,23 @@ namespace IPAdmin.Controllers
             if (patent.SerialNoes == null)
                 patent.SerialNoes = new List<SerialNo>();
 
+            var customer = db.Customers.Find(2);
+
+
                 for (int i = 0; i<number; i++)
                 {
                     var sn = new SerialNo {Patent = patent, SerialNumber = Guid.NewGuid(), CreateDate = DateTime.Now};
+                    SerialNoCustomer snc = new SerialNoCustomer
+                    {
+                        Customer = customer,
+                        CustomerId = customer.Id,
+                        SerialNo = sn,
+                        SerialNoId = sn.Id,
+                        CreateDate = DateTime.Now
+                    };
+
+                    sn.SerialNoCustomers = new Collection<SerialNoCustomer>();
+                    sn.SerialNoCustomers.Add(snc);
                     patent.SerialNoes.Add(sn);
                 }
 

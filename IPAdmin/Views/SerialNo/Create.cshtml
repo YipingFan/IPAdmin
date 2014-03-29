@@ -1,0 +1,24 @@
+﻿@model IPAdmin.ViewModels.AvailableCustomer
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Model.SerialNo.SerialNumber<br/>
+
+    @Html.HiddenFor(m=>m.SerialNoId)
+    @Html.DropDownListFor(m => m.SelectedCustomerId, new SelectList(Model.Customers, "Id", "Company"), "--Select--")
+
+    <p>
+        <input type="submit" value="Give to customer" />
+    </p>
+}
+
+@Html.ActionLink("Create new customer", "Create", "Customer")
