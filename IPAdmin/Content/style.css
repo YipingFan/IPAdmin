@@ -416,7 +416,7 @@ aside {
 /* forms */
 fieldset {
     border: none;
-    margin: 0;
+    margin: 10px 0;
     padding: 0;
 }
 
@@ -772,4 +772,9 @@ tr.pager td {
         footer p {
             margin: 0;
         }
+}
+
+.display-label {
+    font-weight: bold;
+    margin: 10px 0 0 0;
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,7 @@ namespace IPAdmin.Models
     {
         [Key]
         public int Id { get; set; }
+        [DisplayName("Name")]
         public string ContractName { get; set; }
         public string Company { get; set; }
         public string Address { get; set; }

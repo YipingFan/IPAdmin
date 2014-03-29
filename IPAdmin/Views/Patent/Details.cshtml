@@ -27,37 +27,42 @@
     <div class="display-label">
         @Html.DisplayNameFor(model => model.SerialNoes)
     </div>
-        
-        @if (Model.SerialNoes != null)
+
+    <div class="display-field">
+    @if (Model.SerialNoes != null)
         {
-            <ul>
+            <table>
             @foreach (var sn in Model.SerialNoes)
              {
-                 <li>
-                     @sn.SerialNumber
+                 <tr>
+                     <td>
+                         @sn.SerialNumber
+                     </td>
+                     <td>
+                         @if (sn.SerialNoCustomers != null)
+                         {
+                             int i = sn.SerialNoCustomers.Count - 1;
+                             @i;
+                             <text> user(s)</text>
+                         }
+                         else
+                         {
+                             <text>0 user</text>
+                         }
 
-                     @if (sn.SerialNoCustomers != null)
-                     {
-                         int i = sn.SerialNoCustomers.Count - 1;
-                         @i;
-                         <text> user(s)</text>
-                     }
-                     else
-                     {
-                        <text>0 user</text>
-                     }
-
-                     users
-                     
+                         users
+                     </td>
+                     <td>
                      @Html.ActionLink("Detail", "Index", "SerialNo", new { id = sn.Id }, null)
-                 </li>
+                     </td>
+                 </tr>
              }
-            </ul>
+            </table>
         }
+    </div>
     
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Generate more serial number", "Generate", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Patent List", "Index")
 </p>

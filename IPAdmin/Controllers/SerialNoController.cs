@@ -115,6 +115,7 @@ namespace IPAdmin.Controllers
                 content = content.Replace("%COMPANY_NAME%", customer.Customer.Company);
                 content = content.Replace("%SERIAL_NO%", customer.SerialNo.SerialNumber.ToString());
                 content = content.Replace("%MACHINE_ID%", customer.MachineId);
+                content = content.Replace("%CERTIFY_NOTE%", String.Empty);
                 content = content.Replace("%CERTIFY_DATE%", customer.CreateDate.ToString("yyyy MMMM dd"));
             }
 

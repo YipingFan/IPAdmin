@@ -7,11 +7,14 @@
     SerialNoCustomer snCustomer;
 }
 
-<h2>Index</h2>
-
+<h2>Certify Details</h2>
+<br/>
 
 @if (Model.FirstOrDefault() != null)
 {
+    <div class="display-label">
+        Serial Number
+    </div>
     snCustomer = Model.FirstOrDefault();
     @snCustomer.SerialNo.SerialNumber
 }
@@ -23,9 +26,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Order)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MachineId)
         </th>
         <th></th>
     </tr>
@@ -39,13 +39,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Order)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MachineId)
-            </td>    
         </tr>
     }
     
 </table>
+
+<br/>
+<br/>
 
 @if (Model.FirstOrDefault() != null)
 {
