@@ -1,4 +1,4 @@
-﻿@model IPAdmin.Models.Patent
+﻿@model IPAdmin.ViewModels.GenerateSerialNo
 
 @{
     ViewBag.Title = "Generate";
@@ -7,27 +7,50 @@
 
 <h2>Generate</h2>
 
+using(@Html.BeginForm())
+{
+@Html.AntiForgeryToken();
+@Html.ValidationSummary()
+
 <fieldset>
     <legend>Patent</legend>
+    
+    @Html.HiddenFor(model => model.Patent.Id)
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Number)
+        @Html.DisplayNameFor(model => model.Patent.Number)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Number)
+        @Html.DisplayFor(model => model.Patent.Number)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
+        @Html.DisplayNameFor(model => model.Patent.Name)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
+        @Html.DisplayFor(model => model.Patent.Name)
     </div>
-    @{
-        int x = 5;
-    }
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Prefix)
+    </div>
+    <div class="display-field">
+        @Html.TextBoxFor(model => model.Prefix)
+    </div>
+    
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Count)
+    </div>
+    <div class="display-field">
+        @Html.TextBoxFor(model => model.Count)
+    </div>
+
 </fieldset>
 <p>
-    @Html.ActionLink("Generate", "Generate", new { id=Model.Id, number=x }) |
+    <input type="submit" value="Generate" />
+
+    }
+    
+
     @Html.ActionLink("Back to List", "Index")
 </p>

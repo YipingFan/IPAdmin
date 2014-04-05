@@ -25,6 +25,16 @@ namespace IPAdmin.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+        [Data]
+        public string Email { get; set; }
+        public string Company { get; set; }
+        public string Address { get; set; }
+        public string Password { get; set; }
+        public DateTime CreateDate { get; set; }
+        public string CreateBy { get; set; }
+
+        public ICollection<SerialNoCustomer> SerialNoCustomers { get; set; }
+        
     }
 
     public class RegisterExternalLoginModel

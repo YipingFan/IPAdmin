@@ -187,6 +187,18 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PatentController.cs" />
     <Compile Include="Controllers\SerialNoController.cs" />
+    <Compile Include="Migrations\201404031043082_AddUnique.cs" />
+    <Compile Include="Migrations\201404031043082_AddUnique.Designer.cs">
+      <DependentUpon>201404031043082_AddUnique.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404031112427_RestrictLength.cs" />
+    <Compile Include="Migrations\201404031112427_RestrictLength.Designer.cs">
+      <DependentUpon>201404031112427_RestrictLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404031114230_AddIndex.cs" />
+    <Compile Include="Migrations\201404031114230_AddIndex.Designer.cs">
+      <DependentUpon>201404031114230_AddIndex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Patent.cs" />
@@ -200,6 +212,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\PatentRepository.cs" />
     <Compile Include="ViewModels\AvailableCustomer.cs" />
+    <Compile Include="ViewModels\GenerateSerialNo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Certificate.css" />
@@ -337,6 +350,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201404031043082_AddUnique.resx">
+      <DependentUpon>201404031043082_AddUnique.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404031112427_RestrictLength.resx">
+      <DependentUpon>201404031112427_RestrictLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404031114230_AddIndex.resx">
+      <DependentUpon>201404031114230_AddIndex.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

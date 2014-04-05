@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using IPAdmin.Models;
 using IPAdmin.Repository;
+using IPAdmin.ViewModels;
 
 namespace IPAdmin.Controllers
 {
@@ -32,8 +33,8 @@ namespace IPAdmin.Controllers
             //Patent patent = db.Patents.Find(id);
 
             var patent = (from p in db.Patents.Include("SerialNoes.SerialNoCustomers")
-                where p.Id == id
-                select p).FirstOrDefault();
+                          where p.Id == id
+                          select p).FirstOrDefault();
 
             if (patent == null)
             {
@@ -124,42 +125,75 @@ namespace IPAdmin.Controllers
         }
 
         [ActionName("Generate")]
-        public ActionResult GenerateSerialNumber(int id, int number = 0)
+        public ActionResult GenerateSerialNumber(int id)
         {
             Patent patent = db.Patents.Find(id);
+            if (patent == null)
+                return HttpNotFound();
 
-            if (number <= 0)
-            {
-                return View(patent);
-            }
+            return View(new GenerateSerialNo { Patent = patent });
+        }
+
+
+        [HttpPost]
+        [ActionName("Generate")]
+        public ActionResult GenerateSerialNumber(GenerateSerialNo generateSerialNo)
+        {
+            //Patent patent = db.Patents.Find(generateSerialNo.Patent.Id);
+
+            var patent = (from p in db.Patents.Include(x => x.SerialNoes)
+                where p.Id == generateSerialNo.Patent.Id
+                select p).FirstOrDefault();
+            if (patent == null)
+                return HttpNotFound();
 
             if (patent.SerialNoes == null)
                 patent.SerialNoes = new List<SerialNo>();
 
-            var customer = db.Customers.Find(2);
+            var customer = db.Customers.Find(2);  // find admin user
 
+            var sns = (from s in patent.SerialNoes
+                where s.SerialNumber.StartsWith(generateSerialNo.Prefix) && s.CreateDate > DateTime.Today
+                orderby s.Id
+                select s).LastOrDefault();
 
-                for (int i = 0; i<number; i++)
+            int startNumber;
+            if (sns == null)
+            {
+                startNumber = int.Parse(DateTime.Now.ToString("yyMMdd") + "001");
+            }
+            else
+            {
+                int maxNumber = int.Parse(sns.SerialNumber.Split('-').Last());
+                startNumber = maxNumber + 1;
+            }
+
+            for (int i = 0; i < generateSerialNo.Count; i++)
+            {
+                var sn = new SerialNo
                 {
-                    var sn = new SerialNo {Patent = patent, SerialNumber = Guid.NewGuid(), CreateDate = DateTime.Now};
-                    SerialNoCustomer snc = new SerialNoCustomer
-                    {
-                        Customer = customer,
-                        CustomerId = customer.Id,
-                        SerialNo = sn,
-                        SerialNoId = sn.Id,
-                        CreateDate = DateTime.Now
-                    };
+                    Patent = patent,
+                    SerialNumber = generateSerialNo.Prefix + "-" + (startNumber+i).ToString(),
+                    CreateDate = DateTime.Now
+                };
+                SerialNoCustomer snc = new SerialNoCustomer
+                {
+                    Customer = customer,
+                    CustomerId = customer.Id,
+                    SerialNo = sn,
+                    SerialNoId = sn.Id,
+                    CreateDate = DateTime.Now
+                };
 
-                    sn.SerialNoCustomers = new Collection<SerialNoCustomer>();
-                    sn.SerialNoCustomers.Add(snc);
-                    patent.SerialNoes.Add(sn);
-                }
+                sn.SerialNoCustomers = new Collection<SerialNoCustomer>();
+                sn.SerialNoCustomers.Add(snc);
+                patent.SerialNoes.Add(sn);
+            }
 
-                db.Entry(patent).State = EntityState.Modified;
-                db.SaveChanges();
+            db.Entry(patent).State = EntityState.Modified;
+            db.SaveChanges();
 
-                return RedirectToAction("Details", patent);
+            return RedirectToAction("Details", patent);
         }
 
         protected override void Dispose(bool disposing)
