@@ -8,30 +8,26 @@ using System.Web.Security;
 
 namespace IPAdmin.Models
 {
-    public class UsersContext : DbContext
-    {
-        public UsersContext()
-            : base("DefaultConnection")
-        {
-        }
-
-        public DbSet<UserProfile> UserProfiles { get; set; }
-    }
-
     [Table("UserProfile")]
     public class UserProfile
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
+        public int Id { get; set; }
+        [MaxLength(256)]
         public string UserName { get; set; }
-        [Data]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [MaxLength(256)]
         public string Company { get; set; }
+        [MaxLength(256)]
         public string Address { get; set; }
-        public string Password { get; set; }
         public DateTime CreateDate { get; set; }
+        [MaxLength(256)]
         public string CreateBy { get; set; }
+        public DateTime? UpdateDate { get; set; }
+        [MaxLength(256)]
+        public string UpdateBy { get; set; }
 
         public ICollection<SerialNoCustomer> SerialNoCustomers { get; set; }
         
@@ -96,6 +92,19 @@ namespace IPAdmin.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [MaxLength(255, ErrorMessage = "Email address is too long")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [MaxLength(255, ErrorMessage = "Company name is too long")]
+        [Display(Name = "Company Name")]
+        public string Company { get; set; }
+
+        [MaxLength(255, ErrorMessage = "Address is too long")]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
     }
 
     public class ExternalLogin

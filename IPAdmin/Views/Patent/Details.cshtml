@@ -11,10 +11,10 @@
     <legend>Patent</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Number)
+         @Html.DisplayNameFor(model => model.IntSearchCode)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Number)
+        @Html.DisplayFor(model => model.IntSearchCode)
     </div>
 
     <div class="display-label">
@@ -22,6 +22,20 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Owner)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Owner)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Agency)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Agency)
     </div>
     
     <div class="display-label">

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Threading;
 using System.Web.Mvc;
+using System.Web.Security;
+using IPAdmin.Repository;
 using WebMatrix.WebData;
 using IPAdmin.Models;
 
@@ -25,11 +28,11 @@ namespace IPAdmin.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<PatentRepository>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new PatentRepository())
                     {
                         if (!context.Database.Exists())
                         {
@@ -38,7 +41,34 @@ namespace IPAdmin.Filters
                         }
                     }
 
-                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                    WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "Id", "UserName", autoCreateTables: true);
+
+                    if (!Roles.RoleExists("Admin"))
+                        Roles.CreateRole("Admin");
+
+                    if (!Roles.RoleExists("D1"))
+                        Roles.CreateRole("D1");
+
+                    if (!Roles.RoleExists("D2"))
+                        Roles.CreateRole("D2");
+
+                    if (!Roles.RoleExists("M1"))
+                        Roles.CreateRole("M1");
+
+                    if (!Roles.RoleExists("M2"))
+                        Roles.CreateRole("M2");
+
+                    if (!Roles.RoleExists("EndUser"))
+                        Roles.CreateRole("EndUser");
+
+                    if (!WebSecurity.UserExists("efan"))
+                        WebSecurity.CreateUserAndAccount(
+                            "efan",
+                            "password",
+                            new { Email = "Eric.Fan@snsunicorp.com.au"});
+
+                    if (!Roles.GetRolesForUser("efan").Contains("Admin"))
+                        Roles.AddUsersToRoles(new[] { "efan" }, new[] { "Admin" });
                 }
                 catch (Exception ex)
                 {

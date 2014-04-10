@@ -9,7 +9,7 @@ namespace IPAdmin.ViewModels
     public class AvailableCustomer
     {
         public SerialNo SerialNo { get; set; }
-        public ICollection<Customer> Customers { get; set; }
+        public ICollection<UserProfile> Customers { get; set; }
         public int SelectedCustomerId { get; set; }
         public int SerialNoId { get; set; }
     }

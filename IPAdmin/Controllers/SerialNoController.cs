@@ -33,7 +33,7 @@ namespace IPAdmin.Controllers
                 if (serialNo == null)
                     return HttpNotFound();
 
-                var availableCustomers = (from c in db.Customers
+                var availableCustomers = (from c in db.UserProfiles
                     where !(from sc in db.SerialNoCustomers
                         where sc.SerialNoId == id
                         select sc.CustomerId).Contains(c.Id)
@@ -77,7 +77,7 @@ namespace IPAdmin.Controllers
             if (sn == null)
                 return HttpNotFound();
 
-            var customer = db.Customers.Find(availableCustomer.SelectedCustomerId);
+            var customer = db.UserProfiles.Find(availableCustomer.SelectedCustomerId);
 
             int maxOrder = (from sc in db.SerialNoCustomers
                             where sc.SerialNoId == sn.Id

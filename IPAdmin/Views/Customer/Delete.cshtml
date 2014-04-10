@@ -1,4 +1,4 @@
-﻿@model IPAdmin.Models.Customer
+﻿@model IPAdmin.Models.UserProfile
 
 @{
     ViewBag.Title = "Delete";
@@ -11,10 +11,10 @@
     <legend>Customer</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ContractName)
+         @Html.DisplayNameFor(model => model.UserName)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ContractName)
+        @Html.DisplayFor(model => model.UserName)
     </div>
 
     <div class="display-label">
@@ -36,13 +36,6 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Email)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Password)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Password)
     </div>
 
     <div class="display-label">

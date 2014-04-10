@@ -7,19 +7,20 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
+using IPAdmin.Common;
 using IPAdmin.Models;
 using IPAdmin.Repository;
 using IPAdmin.ViewModels;
 
 namespace IPAdmin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PatentController : Controller
     {
         private PatentRepository db = new PatentRepository();
 
         //
         // GET: /Patent/
-
         public ActionResult Index()
         {
             return View(db.Patents.ToList());
@@ -27,11 +28,8 @@ namespace IPAdmin.Controllers
 
         //
         // GET: /Patent/Details/5
-
         public ActionResult Details(int id = 0)
         {
-            //Patent patent = db.Patents.Find(id);
-
             var patent = (from p in db.Patents.Include("SerialNoes.SerialNoCustomers")
                           where p.Id == id
                           select p).FirstOrDefault();
@@ -45,7 +43,6 @@ namespace IPAdmin.Controllers
 
         //
         // GET: /Patent/Create
-
         public ActionResult Create()
         {
             return View();
@@ -53,7 +50,6 @@ namespace IPAdmin.Controllers
 
         //
         // POST: /Patent/Create
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Patent patent)
@@ -61,6 +57,7 @@ namespace IPAdmin.Controllers
             if (ModelState.IsValid)
             {
                 patent.CreateDate = DateTime.Now;
+                patent.CreateBy = Helper.GetCurrentUserName();
                 db.Patents.Add(patent);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -150,7 +147,7 @@ namespace IPAdmin.Controllers
             if (patent.SerialNoes == null)
                 patent.SerialNoes = new List<SerialNo>();
 
-            var customer = db.Customers.Find(2);  // find admin user
+            var customer = db.UserProfiles.Find(2);  // find admin user
 
             var sns = (from s in patent.SerialNoes
                 where s.SerialNumber.StartsWith(generateSerialNo.Prefix) && s.CreateDate > DateTime.Today

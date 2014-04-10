@@ -1,4 +1,4 @@
-﻿@model IPAdmin.Models.Customer
+﻿@model IPAdmin.Models.UserProfile
 
 @{
     ViewBag.Title = "Details";
@@ -10,10 +10,10 @@
     <legend>Customer</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.ContractName)
+         @Html.DisplayNameFor(model => model.UserName)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ContractName)
+        @Html.DisplayFor(model => model.UserName)
     </div>
 
     <div class="display-label">

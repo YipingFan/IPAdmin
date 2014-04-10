@@ -13,9 +13,14 @@ namespace IPAdmin.Models
         public int CustomerId { get; set; }
 
         public SerialNo SerialNo { get; set; }
-        public Customer Customer { get; set; }
-        public int Order { get; set; }
+        public UserProfile Customer { get; set; }
+
+        public string ContractNo { get; set; }
+        public string InvoiceNo { get; set; }
+        public decimal Price { get; set; }
         public string MachineId { get; set; }
+
+        public int Order { get; set; }
         public DateTime CreateDate { get; set; }
     }
 }

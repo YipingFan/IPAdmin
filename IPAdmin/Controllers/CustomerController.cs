@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using IPAdmin.Common;
 using IPAdmin.Models;
 using IPAdmin.Repository;
 
@@ -17,9 +18,10 @@ namespace IPAdmin.Controllers
         //
         // GET: /Customer/
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            return View(db.UserProfiles);
         }
 
         //
@@ -27,7 +29,7 @@ namespace IPAdmin.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Customer customer = db.Customers.Find(id);
+            var customer = db.UserProfiles.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -36,38 +38,11 @@ namespace IPAdmin.Controllers
         }
 
         //
-        // GET: /Customer/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Customer/Create
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Customer customer)
-        {
-            if (ModelState.IsValid)
-            {
-                customer.CreateDate = DateTime.Now;
-                customer.CreateBy = "Admin";
-                db.Customers.Add(customer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(customer);
-        }
-
-        //
         // GET: /Customer/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Customer customer = db.Customers.Find(id);
+            var customer = db.UserProfiles.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -80,10 +55,12 @@ namespace IPAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Customer customer)
+        public ActionResult Edit(UserProfile customer)
         {
             if (ModelState.IsValid)
             {
+                customer.UpdateDate = DateTime.Now;
+                customer.UpdateBy = Helper.GetCurrentUserName();
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,7 +73,7 @@ namespace IPAdmin.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Customer customer = db.Customers.Find(id);
+            var customer = db.UserProfiles.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -111,14 +88,11 @@ namespace IPAdmin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
+            var customer = db.UserProfiles.Find(id);
+            db.UserProfiles.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-
-
 
         protected override void Dispose(bool disposing)
         {

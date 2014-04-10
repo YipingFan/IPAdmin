@@ -1,4 +1,4 @@
-﻿@model IPAdmin.Models.Customer
+﻿@model IPAdmin.Models.UserProfile
 
 @{
     ViewBag.Title = "Edit";
@@ -16,11 +16,11 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.ContractName)
+            @Html.LabelFor(model => model.UserName)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.ContractName)
-            @Html.ValidationMessageFor(model => model.ContractName)
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
         </div>
 
         <div class="editor-label">
@@ -46,23 +46,6 @@
             @Html.EditorFor(model => model.Email)
             @Html.ValidationMessageFor(model => model.Email)
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreateDate)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CreateDate)
-            @Html.ValidationMessageFor(model => model.CreateDate)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CreateBy)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CreateBy)
-            @Html.ValidationMessageFor(model => model.CreateBy)
-        </div>
-
         <p>
             <input type="submit" value="Save" />
         </p>
